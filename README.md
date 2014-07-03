@@ -5,6 +5,8 @@ In this repo I store all the talks I did:
 
 ## beanstalkd
 
+**Ruby Usergroup Berlin 06/2014**
+
 A revolutionary idea: why not use a job queue system for your job queue?
 
 Most people use delayed job aka a database or resque/sidekiq for queuing. But
@@ -16,7 +18,7 @@ why.
 
 ## WECK DEN GEEK IN DIR
 
-Froscon/RedFrogConf 2013
+**Froscon/RedFrogConf 2013**
 
 Was ist ein Geek? Oder Nerd? Und wo trifft man mehr davon? Warum sollte man die
 überhaupt treffen wollen? Reicht es nicht, wenn man schon tagsüber im Büro mit
@@ -28,7 +30,7 @@ in dem Talk!!1! Kann nicht jemand mal an die Nerds denken hier?!
 
 ## Endless fun with Arduino and Eventmachine
 
-Euruko 2011
+**Euruko 2011**
 
 After seven years of working as a java developer, Bodo fall in love with ruby
 and moved to cologne to work as a full time ruby developer. He started
