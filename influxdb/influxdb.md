@@ -17,7 +17,7 @@
 
 ---
 
-## Use Cases
+# Use Cases
 
 ^ Statistics
 ^ Agregate huge amounts of data
@@ -25,7 +25,7 @@
 
 ---
 
-## Data Model
+# Data Model
 
 ^ Schema less
 ^ Key-Value on Time Event
@@ -33,7 +33,7 @@
 
 ---
 
-```sh
+```
 brew install InfluxDB
 influxd -config /usr/local/etc/influxdb.conf
 ```
@@ -44,7 +44,7 @@ influxd -config /usr/local/etc/influxdb.conf
 
 ---
 
-## Query Language
+# Query Language
 
 ---
 
@@ -73,7 +73,7 @@ INSERT cpu_load,server_name=gilbert value=2
 
 ---
 
-## Retention
+# Retention
 
 ---
 
@@ -103,6 +103,95 @@ BEGIN
   GROUP BY time(30m)
 END
 ```
+
+---
+
+# Telegraf
+
+^ plugin-driven server agent for collecting & reporting metrics.
+^ brew install telegraf
+
+---
+
+```
+aerospike, apache, bcache, couchdb, disque,
+dns query time, docker, dovecot, elasticsearch,
+exec, haproxy, httpjson, influxdb, jolokia, leofs,
+lustre2, mailchimp, memcached, mesos,
+mongodb, mysql, net_response, nginx,
+nsq, phpfpm, phusion passenger, ping,
+postgresql, powerdns, procstat, prometheus,
+puppetagent, rabbitmq, raindrops, redis, rethinkdb,
+riak, sensors, snmp, sql server, twemproxy, zfs,
+zookeeper, win_perf_counters, system, cpu, mem, net,
+netstat, disk, diskio, swap, statsd, mqtt_consumer,
+kafka_consumer, nats_consumer, github_webhooks
+```
+
+^ Input Plugins
+
+---
+
+```
+influxdb, amon, amqp, aws kinesis,
+aws cloudwatch, datadog, graphite,
+kafka, librato, mqtt, nsq, opentsdb,
+prometheus, riemann
+```
+
+^ Output plugins
+
+---
+
+```
+telegraf -sample-config
+  -input-filter cpu
+  -output-filter influxdb
+  > telegraf.conf
+```
+
+---
+
+```
+[[outputs.influxdb]]
+  urls = ["http://localhost:8086"]
+  database = "telegraf"
+  precision = "s"
+```
+
+---
+
+```
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  drop = ["time_*"]
+```
+
+---
+
+```
+telegraf -config telegraf.conf
+```
+
+---
+
+# Chronograf
+
+^ TIME-SERIES DATA VISUALIZATION DOCS
+^ https://influxdata.com/time-series-platform/chronograf/
+
+---
+
+# Kapacitor
+
+^ Kapacitor is a data processing engine. It can process both stream and batch data. This guide will walk you through both workflows and teach you the basics of using and running a Kapacitor daemon.
+
+^ https://docs.influxdata.com/kapacitor/v0.10/introduction/getting_started/
+
+---
+
+![fit](TICK-Stack.png)
 
 ---
 
