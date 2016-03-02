@@ -2,7 +2,7 @@
 
 ---
 
-![](time.jpg)
+![](images/time.jpg)
 
 ## Time Series Database
 
@@ -13,7 +13,7 @@
 
 ---
 
-![fit](TICK-Stack.png)
+![fit](images/TICK-Stack.png)
 
 ---
 
@@ -40,7 +40,7 @@ influxd -config /usr/local/etc/influxdb.conf
 
 ---
 
-![fit](webadmin.png)
+![fit](images/webadmin.png)
 
 ---
 
@@ -70,6 +70,13 @@ INSERT cpu_load,server_name=gilbert value=2
 
 ^ Values can be strings, floats, integers, or booleans
 ^ Tags are indexed and can be strings
+
+---
+
+```bash
+curl -i -XPOST 'http://localhost:8086/write?db=mydb'
+  --data-binary 'cpu_load,server_name=gilbert value=2'
+```
 
 ---
 
@@ -113,24 +120,23 @@ END
 
 ---
 
-```
-aerospike, apache, bcache, couchdb, disque,
-dns query time, docker, dovecot, elasticsearch,
-exec, haproxy, httpjson, influxdb, jolokia, leofs,
-lustre2, mailchimp, memcached, mesos,
-mongodb, mysql, net_response, nginx,
-nsq, phpfpm, phusion passenger, ping,
-postgresql, powerdns, procstat, prometheus,
-puppetagent, rabbitmq, raindrops, redis, rethinkdb,
-riak, sensors, snmp, sql server, twemproxy, zfs,
-zookeeper, win_perf_counters, system, cpu, mem, net,
-netstat, disk, diskio, swap, statsd, mqtt_consumer,
-kafka_consumer, nats_consumer, github_webhooks
-```
+## Input Plugins
 
-^ Input Plugins
+```
+aerospike, apache, bcache, couchdb, disque, dns query time, docker,
+dovecot, elasticsearch, exec, haproxy, httpjson, influxdb, jolokia,
+leofs, lustre2, mailchimp, memcached, mesos, mongodb, mysql,
+net_response, nginx, nsq, phpfpm, phusion passenger, ping, postgresql,
+powerdns, procstat, prometheus, puppetagent, rabbitmq, raindrops,
+redis, rethinkdb, riak, sensors, snmp, sql server, twemproxy, zfs,
+zookeeper, win_perf_counters, system, cpu, mem, net, netstat, disk,
+diskio, swap, statsd, mqtt_consumer, kafka_consumer, nats_consumer,
+github_webhooks
+```
 
 ---
+
+## Output Plugins
 
 ```
 influxdb, amon, amqp, aws kinesis,
@@ -183,6 +189,49 @@ telegraf -config telegraf.conf
 
 ---
 
+
+```
+brew install chronograf
+chronograf
+```
+
+---
+
+![fit](images/add-server.png)
+
+^ Add a new server
+
+---
+
+![fit](images/server-tray-10.png)
+
+^ Add a new graph
+
+---
+
+![fit](images/query-builder-010.png)
+
+---
+
+![fit](images/add-from-existing-graphs-010.png)
+
+^ Go do Dashboard, add new dashboard, add a visualation you created previously
+
+---
+
+![fit](images/select-graph-for-dash-010.png)
+
+---
+
+![fit](images/sample-dashboard-010.png)
+
+---
+
+> GitLab Performance Monitoring: a monitoring system using InfluxDB [...] then visualized using Grafana
+-- [Gitlab Performance Blogpost](https://about.gitlab.com/2016/02/25/making-gitlab-faster/)
+
+---
+
 # Kapacitor
 
 ^ Kapacitor is a data processing engine. It can process both stream and batch data. This guide will walk you through both workflows and teach you the basics of using and running a Kapacitor daemon.
@@ -191,7 +240,7 @@ telegraf -config telegraf.conf
 
 ---
 
-![fit](TICK-Stack.png)
+![fit](images/TICK-Stack.png)
 
 ---
 
@@ -204,5 +253,6 @@ telegraf -config telegraf.conf
 # Credits
 
 ```
-* Time Series Image CC-BY-2.0 Ian Sane https://www.flickr.com/photos/31246066@N04/5261957053
+* Time Series Image CC-BY-2.0 Ian Sane
+  https://www.flickr.com/photos/31246066@N04/5261957053
 ```
