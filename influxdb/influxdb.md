@@ -1,3 +1,4 @@
+
 # InfluxDB
 
 ---
@@ -7,8 +8,11 @@
 ## Time Series Database
 
 ^ Time Series Data
+
 ^ Sensor Data, Logdata, Events
+
 ^ Basically everything that is time based
+
 ^ InfluxDB is made to store a large volume of time-series data and perform real-time analysis on those data, quickly.
 
 ---
@@ -20,7 +24,9 @@
 # Use Cases
 
 ^ Statistics
+
 ^ Agregate huge amounts of data
+
 ^ Monitoring & Alerting
 
 ---
@@ -28,7 +34,9 @@
 # Data Model
 
 ^ Schema less
+
 ^ Key-Value on Time Event
+
 ^ Values can be strings, floats, integers, or booleans
 
 ---
@@ -60,6 +68,7 @@ GROUP BY time(30s)
 ```
 
 ^ Percentile and others also available
+
 ^ You can do joins ad merges
 
 ---
@@ -69,6 +78,7 @@ INSERT cpu_load,server_name=gilbert value=2
 ```
 
 ^ Values can be strings, floats, integers, or booleans
+
 ^ Tags are indexed and can be strings
 
 ---
@@ -94,8 +104,11 @@ CREATE RETENTION POLICY two_hours
 ## Downsampling
 
 ^ InfluxDB can handle hundreds of thousands of data points per second.
+
 ^ A natural solution is to downsample the data; keep the high precision raw data for only a limited time, and store the lower precision, summarized data for much longer or forever.
+
 ^ do precalculations
+
 ^ organize the data in a different way
 
 ---
@@ -116,6 +129,7 @@ END
 # Telegraf
 
 ^ plugin-driven server agent for collecting & reporting metrics.
+
 ^ brew install telegraf
 
 ---
@@ -185,6 +199,7 @@ telegraf -config telegraf.conf
 # Chronograf
 
 ^ TIME-SERIES DATA VISUALIZATION DOCS
+
 ^ https://influxdata.com/time-series-platform/chronograf/
 
 ---
@@ -234,9 +249,96 @@ chronograf
 
 # Kapacitor
 
-^ Kapacitor is a data processing engine. It can process both stream and batch data. This guide will walk you through both workflows and teach you the basics of using and running a Kapacitor daemon.
+^ Kapacitor is a data processing engine. It can process both stream and batch data.
+
+^ run this as addition to icinga / nagios
 
 ^ https://docs.influxdata.com/kapacitor/v0.10/introduction/getting_started/
+
+---
+
+
+```
+brew install kapacitor
+```
+
+---
+
+```
+kapacitord config > kapacitor.conf
+```
+
+---
+
+```
+kapacitord -config kapacitor.conf
+```
+
+---
+
+## cpu_alert.tick
+
+```js
+stream
+    // Select just the cpu measurement
+    .from().measurement('cpu')
+    .alert()
+        .crit(lambda: "usage_idle" <  70)
+        // Whenever we get an alert write it to a file.
+        .log('/tmp/alerts.log')
+```
+
+---
+
+```bash
+kapacitor define \
+    -name cpu_alert \
+    -type stream \
+    -tick cpu_alert.tick \
+    -dbrp kapacitor_example.default
+```
+
+---
+
+```
+kapacitor enable cpu_alert
+```
+
+---
+
+```javascript
+stream
+    .from().measurement('cpu')
+    .alert()
+        // Compare values to running mean and standard deviation
+        .crit(lambda: sigma("usage_idle") > 3)
+        .log('/tmp/alerts.log')
+```
+
+^ trigger an alert if the values are more than 3 standard deviations away from the mean
+
+---
+
+```javascript
+stream
+    .from().measurement('cpu_usage_idle')
+    .groupBy('host')
+    .window().period(1m).every(1m)
+    .mapReduce(influxql.mean('value'))
+    .eval(lambda: 100.0 - "mean").as('used')
+    .alert()
+        .message('{{ .Level}}: {{ .Name }}/{{ index .Tags "host" }} has ' +
+                 'high cpu usage: {{ index .Fields "used" }}')
+        .warn(lambda: "used" > 70.0)
+        .crit(lambda: "used" > 85.0)
+        .slack().channel('#alerts')
+        .pagerDuty()
+
+```
+
+^ In the examples of Kapacitor you will find more interesting stuff. Calculating
+the top scorers of a Game from the InfluxDB Measurements or detecting anomalies and
+alerting them
 
 ---
 
