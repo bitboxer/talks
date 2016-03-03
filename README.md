@@ -2,7 +2,6 @@
 
 In this repo I store all the talks I did:
 
-
 ## beanstalkd
 
 **Ruby Usergroup Berlin 06/2014**
