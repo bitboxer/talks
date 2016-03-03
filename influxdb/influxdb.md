@@ -37,12 +37,16 @@
 
 ^ Key-Value on Time Event
 
-^ Values can be strings, floats, integers, or booleans
+---
+
+* String
+* Integer
+* Floats
+* Boolean
 
 ---
 
 ```
-brew install InfluxDB
 influxd -config /usr/local/etc/influxdb.conf
 ```
 
@@ -116,8 +120,8 @@ CREATE RETENTION POLICY two_hours
 ```SQL
 CREATE CONTINUOUS QUERY cq_30m ON food_data
 BEGIN
-  SELECT mean(website) AS mean_website,
-         mean(phone) AS mean_phone
+  SELECT mean(temperature) AS mean_temperature,
+         mean(delivery_time) AS mean_delivery_time
   INTO food_data."default".downsampled_orders
   FROM orders
   GROUP BY time(30m)
@@ -206,7 +210,6 @@ telegraf -config telegraf.conf
 
 
 ```
-brew install chronograf
 chronograf
 ```
 
@@ -257,12 +260,6 @@ chronograf
 
 ---
 
-
-```
-brew install kapacitor
-```
-
----
 
 ```
 kapacitord config > kapacitor.conf
