@@ -20,7 +20,7 @@ they go, or what to do.
 
 ^ But what about git?
 ^ If developer alice worked on something
-and had to stop because of illness,
+and had to stop because of having the cold,
 where can developer justine find it?
 ^ At bitcrowd we have convetions for that
 
@@ -38,7 +38,7 @@ feature/1234-example-ticket
 [#1234] Example ticket
 ```
 
-^ And this is how a ticket looks like
+^ And this is how a commit looks like
 
 ---
 
@@ -75,9 +75,13 @@ git commit --allow-empty -m '[#35] List github-project tickets'
 
 * React
 * Gulp
+
+---
+
 * WebExtensions API
 
-^ web extension api => Firefox, Chrome, Opera, (Maybe IE latest), Safari
+^ web extension api aka browser extension api => Firefox, Chrome, Opera, Microsoft Edge
+^ sadly not safari, but you can write a small wrapper for that
 
 ---
 
