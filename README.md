@@ -40,9 +40,9 @@ Rails has this nice little feature called Enums. The [introduction
 example](http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html) is
 something like this:
 
-```
+```ruby
 class Conversation < ActiveRecord::Base
-enum status: [ :active, :archived ]
+  enum status: [ :active, :archived ]
 end
 ```
 
