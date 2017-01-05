@@ -1,7 +1,15 @@
 # My Talks
 
-In this repo I store all the talks I did. You can also 
+In this repo I store all the talks I did. You can also
 see them on my [speakerdeck](https://speakerdeck.com/bitboxer).
+
+## manpages
+
+**Ruby Usergroup Berlin 01/2017**
+
+A small lightning talk about my [manpages gem](http://github.com/bitboxxer/manpages).
+
+[Slides](https://speakerdeck.com/bitboxer/manpages)
 
 ## Tickety Tick
 
