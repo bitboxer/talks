@@ -1,3 +1,5 @@
+theme: Fira, 1
+
 # SignDict
 ## Bodo Tasche
 
@@ -40,6 +42,10 @@
 ---
 
 ![fit](signdict-recorder.png)
+
+---
+
+![](capturing-the-human-heart-227847.jpg)
 
 ---
 
